@@ -82,10 +82,12 @@ The InetAddress class in Java follows a design pattern call Factory Design Patte
 
 Instead of having any public constructor in the class definition, the InetAddress has static factory methods that connect to a DNS server to resolve a hostname. The most common and the one you will primarily use is the following:
 
+
 InetAddress.getByName();
 
 For example, if you want to look up www.google.com you will do something like this:
 
+```java
 import java.net.InetAddress;
 
 import java.net.InetAddress;
@@ -101,19 +103,22 @@ public class InetAddressExample {
         }
     }
 }
-
+```
 
 This method does not merely set a private String in the InetAddress class but it actually makes a connection to the local DNS server to look up the name and the numeric address. The method throws an UnknownHostExceptio which is a subclass of IOException, if the DNS server can't find the address.
 
 If you want to get the hostname for a IP Address, a reverse lookup, you can do this using the InetAddress class. To do this you have to pass the dotted quad address to the InetAddress.getByName() as paramters.
 
+```java
 InetAddress address = InetAddress.getByName("208.201.239.100");
 System.out.println(address.getHostName());
+```
 
 In this scenario, if your look up does not have a hostname, getHostName() simply returns the dotted quad address that you gave as parameter.
 
 In the case of a hostname referring to more than one IP Addresses you should use the following and if for some reason you need all the addresses of the host, use getAllByName(). This method returns an array:
 
+```java
 try {
     InetAddress[] addresses = InetAddress.getAllByName("www.google.com");
     for (InetAddress address : addresses) {
@@ -122,10 +127,13 @@ try {
 } catch (UnknownHostException ex) {
     System.out.println("Could not find www.google.com");
 }
+```
 
 Last but not least, if you want to get an InetAddress object for the host on which your code is running use getLocalHost():
 
+```java
 InetAddress localHost = InetAddress.getLocalHost();
+```
 
 This method tries to connect to DNS to get a real hostname and IP address such as
 "www.google.com" and "192.1.254.68"; but if that fails it may return the loopback
@@ -134,16 +142,20 @@ address instead. This is the hostname "localhost" and the dotted quad address
 
 There is another factory method in the InetAddress class which lets you create a InetAddress object from a numeric address and hostname(optional). This methods are helpful when a domain name server is not available to you or might have inaccurate information.
 
-    public static InetAddress getByAddress(String host,byte[] addr)
+```java
+public static InetAddress getByAddress(String host,byte[] addr)
     
-    public static InetAddress getByAddress(byte[] addr)
+public static InetAddress getByAddress(byte[] addr)
+```
 
 These methods can create addresses for hosts that do not exist or can not be resolved. The following examples demonastrates this:
 
+```java
 byte[] address = {107, 23, (byte) 216, (byte) 196};
 InetAddress inetAddress = InetAddress.getByAddress(address);
 InetAddress inetAddress = InetAddress.getByAddress(
 "www.google.nosite", address);
+```
 
 You have to cast the large values to bytes as these two methods take bytes as its parameters. The methods throws an UnknownHostException if the byte array size is neither 4 nor 16 bytes long. These methods are helpful when the hosts are not registered any DNS server but they are assigned IP Addresses.
 
@@ -160,10 +172,12 @@ Getter & Setter Methods
 
 There are four getter methods in the InetAddress class that return the hostname as a string and the IP Address as both a string and byte array. 
 
+```java
 public String getHostName()
 public String getCanonicalHostName()
 public byte[] getAddress()
 public String getHostAddress()
+```
 
 There are no setHostName() and setAddress() methods in the InetAddress class which makes the InetAddress immutable. This ensures thread safety.
 
