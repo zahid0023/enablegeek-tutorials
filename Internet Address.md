@@ -179,7 +179,7 @@ public byte[] getAddress()
 public String getHostAddress()
 ```
 
-There are no setHostName() and setAddress() methods in the InetAddress class which makes the InetAddress immutable. This ensures thread safety.
+There are no setHostName() and setAddress() methods in the InetAddress class which makes thevInetAddress immutable. This ensures thread safety.
 
 Please refere to the documentation for further details about the getter methods. If we try to explain everything in detail in this course the course will be very long and boring. The purpose of this course is to introduce you to the concepts that will get you started with the network programming and build a solid foundation. For further study always refer to the official documentation of Java which is a rich source of information.
 
